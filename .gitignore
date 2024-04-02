@@ -24,3 +24,6 @@ child-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Workspace or other user-specific files.
+*.sublime-workspace
