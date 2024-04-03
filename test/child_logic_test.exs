@@ -1,4 +1,4 @@
-defmodule ChildTest do
+defmodule ChildLogicTest do
   use ExUnit.Case
 
   alias Child.Logic, as: Child

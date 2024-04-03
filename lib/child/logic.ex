@@ -3,14 +3,15 @@ defmodule Child.Logic do
   A 4-year-old child.
   """
 
-  @type action() :: :play | :eat | :kindergarten
-
-  @type state() :: :playing | :eating | :hiding
-
   @type t() :: %__MODULE__{
-          state: state
+          state: Child.state()
         }
   defstruct(state: :playing)
+
+  @typedoc """
+  An action recognized by a child.
+  """
+  @type action() :: :play | :eat | :kindergarten
 
   @doc "Wake up a new child ready to play."
   @spec wake_up() :: t()
