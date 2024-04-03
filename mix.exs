@@ -14,9 +14,10 @@ defmodule Child.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      # extra_applications: [:logger]
+      # extra_applications: [:logger],
       # fix problems in Sonoma with Erlang/OTP 26
-      extra_applications: [:logger, :observer, :runtime_tools, :wx]
+      extra_applications: [:logger, :observer, :runtime_tools, :wx],
+      mod: {ChildApplication, []}
     ]
   end
 

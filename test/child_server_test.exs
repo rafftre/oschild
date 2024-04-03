@@ -2,13 +2,15 @@ defmodule ChildServerTest do
   use ExUnit.Case
   doctest ChildServer
 
+  @sample_name "Leo"
+
   test "start server" do
-    {:ok, server} = ChildServer.start_link()
+    {:ok, server} = ChildServer.start_link(@sample_name)
     assert ChildServer.current_activity(server) == :playing
   end
 
   test "current activity" do
-    {:ok, server} = ChildServer.start_link()
+    {:ok, server} = ChildServer.start_link(@sample_name)
 
     assert ChildServer.current_activity(server) == :playing
 
@@ -23,7 +25,7 @@ defmodule ChildServerTest do
   end
 
   test "calls to play" do
-    {:ok, server} = ChildServer.start_link()
+    {:ok, server} = ChildServer.start_link(@sample_name)
 
     assert ChildServer.call_to_play(server) == {:error, :playing}
 
@@ -35,7 +37,7 @@ defmodule ChildServerTest do
   end
 
   test "calls to eat" do
-    {:ok, server} = ChildServer.start_link()
+    {:ok, server} = ChildServer.start_link(@sample_name)
 
     assert ChildServer.call_to_eat(server) == {:ok, :eating}
 
@@ -46,7 +48,7 @@ defmodule ChildServerTest do
   end
 
   test "calls to kindergarten" do
-    {:ok, server} = ChildServer.start_link()
+    {:ok, server} = ChildServer.start_link(@sample_name)
 
     assert ChildServer.call_to_kindergarten(server) == {:ok, :hiding}
 
