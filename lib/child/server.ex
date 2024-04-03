@@ -1,7 +1,9 @@
-defmodule ChildServer do
+defmodule Child.Server do
   @moduledoc """
   A server process managing a single child.
   """
+
+  alias Child.Logic, as: Child
 
   use GenServer, restart: :temporary
 

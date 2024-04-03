@@ -1,4 +1,4 @@
-defmodule Nanny do
+defmodule Child.Supervisor do
   @moduledoc """
   A supervisor providing child care.
   """
@@ -24,10 +24,10 @@ defmodule Nanny do
 
   # Private
 
-  defp awakened_child(name), do: ChildServer.whereis(name)
+  defp awakened_child(name), do: Child.Server.whereis(name)
 
   defp wake_up_child(name) do
-    case DynamicSupervisor.start_child(__MODULE__, {ChildServer, name}) do
+    case DynamicSupervisor.start_child(__MODULE__, {Child.Server, name}) do
       {:ok, pid} -> pid
       {:error, {:already_started, pid}} -> pid
     end

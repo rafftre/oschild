@@ -1,6 +1,7 @@
 defmodule ChildTest do
   use ExUnit.Case
-  doctest Child
+
+  alias Child.Logic, as: Child
 
   test "just woken up" do
     assert Child.wake_up() == %Child{state: :playing}

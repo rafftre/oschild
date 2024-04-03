@@ -1,4 +1,4 @@
-defmodule Child do
+defmodule Child.Logic do
   @moduledoc """
   A 4-year-old child.
   """

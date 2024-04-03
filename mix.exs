@@ -17,7 +17,7 @@ defmodule Child.MixProject do
       # extra_applications: [:logger],
       # fix problems in Sonoma with Erlang/OTP 26
       extra_applications: [:logger, :observer, :runtime_tools, :wx],
-      mod: {ChildApplication, []}
+      mod: {Child.Application, []}
     ]
   end
 
