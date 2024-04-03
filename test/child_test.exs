@@ -2,13 +2,15 @@ defmodule ChildTest do
   use ExUnit.Case
 
   test "find children" do
-    child_a = Child.find("a")
-    child_b = Child.find("b")
+    child_a = Child.get("a")
+    child_b = Child.get("b")
     assert child_a != child_b
+
+    assert not Enum.empty?(Child.all())
   end
 
   test "current activity" do
-    child = Child.find("current")
+    child = Child.get("current")
 
     assert Child.current_activity(child) == :playing
 
@@ -23,7 +25,7 @@ defmodule ChildTest do
   end
 
   test "calls to play" do
-    child = Child.find("play")
+    child = Child.get("play")
 
     assert Child.call_to_play(child) == {:error, :playing}
 
@@ -35,7 +37,7 @@ defmodule ChildTest do
   end
 
   test "calls to eat" do
-    child = Child.find("eat")
+    child = Child.get("eat")
 
     assert Child.call_to_eat(child) == {:ok, :eating}
 
@@ -46,7 +48,7 @@ defmodule ChildTest do
   end
 
   test "calls to kindergarten" do
-    child = Child.find("kindergarten")
+    child = Child.get("kindergarten")
 
     assert Child.call_to_kindergarten(child) == {:ok, :hiding}
 

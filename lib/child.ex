@@ -2,7 +2,7 @@ defmodule Child do
   @moduledoc """
   API for a system of 4-year-old children.
 
-  The functions defined here assume that a Child.Application is already running.
+  Functions of this module require that a Child.Application is already running.
   """
 
   # Types
@@ -19,8 +19,14 @@ defmodule Child do
 
   # Functions
 
-  @spec find(String.t()) :: pid()
-  defdelegate find(child_name), to: Child.Supervisor, as: :find_child
+  @spec all() :: list(state())
+  def all() do
+    Child.Supervisor.find_all()
+    |> Enum.map(fn pid -> {pid, Child.Server.current_activity(pid)} end)
+  end
+
+  @spec get(String.t()) :: pid()
+  defdelegate get(child_name), to: Child.Supervisor, as: :get_child
 
   @spec current_activity(GenServer.server()) :: state()
   defdelegate current_activity(server), to: Child.Server

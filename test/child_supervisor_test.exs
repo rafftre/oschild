@@ -6,8 +6,10 @@ defmodule ChildSupervisorTest do
   test "start children" do
     Sup.start_link(nil)
 
-    child_a = Sup.find_child("a")
-    child_b = Sup.find_child("b")
+    child_a = Sup.get_child("a")
+    child_b = Sup.get_child("b")
     assert child_a != child_b
+
+    assert not Enum.empty?(Sup.find_all())
   end
 end
