@@ -9,19 +9,19 @@ defmodule ChildTest do
     assert not Enum.empty?(Child.all())
   end
 
-  test "current activity" do
+  test "get state" do
     child = Child.get("current")
 
-    assert Child.current_activity(child) == :playing
+    assert %{activity: :playing} = Child.get_state(child)
 
     assert Child.call_to_eat(child) == {:ok, :eating}
-    assert Child.current_activity(child) == :eating
+    assert %{activity: :eating} = Child.get_state(child)
 
     assert Child.call_to_kindergarten(child) == {:ok, :hiding}
-    assert Child.current_activity(child) == :hiding
+    assert %{activity: :hiding} = Child.get_state(child)
 
     assert Child.call_to_play(child) == {:ok, :playing}
-    assert Child.current_activity(child) == :playing
+    assert %{activity: :playing} = Child.get_state(child)
   end
 
   test "calls to play" do
@@ -57,5 +57,17 @@ defmodule ChildTest do
     assert Child.call_to_play(child) == {:ok, :playing}
     assert Child.call_to_eat(child) == {:ok, :eating}
     assert Child.call_to_kindergarten(child) == {:ok, :hiding}
+  end
+
+  test "give snacks" do
+    child = Child.get("snack")
+
+    assert Child.give_snack(child) == {:ok, 1}
+
+    assert Child.call_to_eat(child) == {:ok, :eating}
+    assert Child.give_snack(child) == {:ok, 2}
+
+    assert Child.call_to_kindergarten(child) == {:ok, :hiding}
+    assert Child.give_snack(child) == {:error, 2}
   end
 end

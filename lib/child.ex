@@ -8,35 +8,60 @@ defmodule Child do
   # Types
 
   @typedoc """
-  A state of a child.
+  An activity of a child.
   """
-  @type state() :: :playing | :eating | :hiding
+  @type activity() :: :playing | :eating | :hiding
 
   @typedoc """
-  Return value of `call_to_*` functions.
+  An action recognized by a child.
   """
-  @type on_call_to() :: {:ok, state()} | {:error, state()}
+  @type action() :: :play | :eat | :kindergarten
+
+  @typedoc """
+  A child.
+  """
+  @type t() :: %{
+          name: String.t(),
+          activity: Child.activity(),
+          mood: non_neg_integer(),
+          snacks: non_neg_integer()
+        }
 
   # Functions
 
-  @spec all() :: list(state())
-  def all() do
-    Child.Supervisor.find_all()
-    |> Enum.map(fn pid -> {pid, Child.Server.current_activity(pid)} end)
-  end
+  @spec all() :: list(pid())
+  def all(), do: Child.Supervisor.find_all()
 
   @spec get(String.t()) :: pid()
   defdelegate get(child_name), to: Child.Supervisor, as: :get_child
 
-  @spec current_activity(GenServer.server()) :: state()
-  defdelegate current_activity(server), to: Child.Server
+  @spec get_state(GenServer.server()) :: t()
+  def get_state(server) do
+    server
+    |> Child.Server.current_state()
+    |> to_map()
+  end
 
-  @spec call_to_play(GenServer.server()) :: on_call_to()
+  @spec give_snack(GenServer.server()) :: {:ok, non_neg_integer()} | {:error, non_neg_integer()}
+  def give_snack(server), do: Child.Server.give_snacks(server, 1)
+
+  @spec call_to_play(GenServer.server()) :: {:ok, activity()} | {:error, activity()}
   def call_to_play(server), do: Child.Server.call_to(server, :play)
 
-  @spec call_to_eat(GenServer.server()) :: on_call_to()
+  @spec call_to_eat(GenServer.server()) :: {:ok, activity()} | {:error, activity()}
   def call_to_eat(server), do: Child.Server.call_to(server, :eat)
 
-  @spec call_to_kindergarten(GenServer.server()) :: on_call_to()
+  @spec call_to_kindergarten(GenServer.server()) :: {:ok, activity()} | {:error, activity()}
   def call_to_kindergarten(server), do: Child.Server.call_to(server, :kindergarten)
+
+  # Private functions
+
+  defp to_map({name, child = %Child.Core{}}) do
+    %{
+      name: name,
+      activity: child.activity,
+      mood: child.mood,
+      snacks: child.snacks
+    }
+  end
 end

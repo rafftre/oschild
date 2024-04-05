@@ -18,20 +18,27 @@ defmodule TextClient do
     display_actions(@actions)
     action = Enum.at(@actions, select_action_index(), Enum.at(@actions, 0))
 
-    res = call_to(elem(child, 0), action)
-    display_call_result(child, action, res)
+    res = call_to(child, action)
+    display_call_result(action, res)
 
     interact()
   end
 
+  defp display_playground([]), do: IO.puts("Playground is empty.")
+
   defp display_playground(children) do
     IO.puts([
-      "Playground is ",
+      "In the playground there are ",
       children
-      |> Enum.with_index()
-      |> Enum.map(fn {{_pid, x}, i} -> "#{i}: #{Atom.to_string(x)}" end)
+      |> Stream.map(fn child -> child |> Child.get_state() |> child_state_as_string() end)
+      |> Stream.with_index()
+      |> Stream.map(fn {x, i} -> "#{i}: #{x}" end)
       |> Enum.join(", ")
     ])
+  end
+
+  defp child_state_as_string(%{name: name, activity: activity, mood: mood, snacks: snacks}) do
+    "#{name}|#{Atom.to_string(activity)}|#{mood}|#{snacks}"
   end
 
   defp display_actions(actions) do
@@ -44,12 +51,12 @@ defmodule TextClient do
     ])
   end
 
-  defp display_call_result({_pid, prev}, action, {:ok, next}) do
-    IO.puts("Successful transition from #{prev} to #{next} with #{action}")
+  defp display_call_result(action, {:ok, activity}) do
+    IO.puts("Successful transition to #{activity} with #{action}")
   end
 
-  defp display_call_result({_pid, prev}, action, {:error, _}) do
-    IO.puts("Cannot transition from #{prev} with #{action}")
+  defp display_call_result(action, {:error, activity}) do
+    IO.puts("Cannot transition from #{activity} with #{action}")
   end
 
   defp ask_for_input(prompt) do
@@ -60,7 +67,7 @@ defmodule TextClient do
   end
 
   defp select_child_index() do
-    ask_for_input("Select child: ")
+    ask_for_input("Select child or enter a name to add new: ")
     |> Integer.parse()
     |> elem(0)
   end
