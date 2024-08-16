@@ -35,3 +35,5 @@ oschild-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# rafftre
+*.sublime-workspace
