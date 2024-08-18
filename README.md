@@ -23,6 +23,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 mix phx.new oschild
 cd oschild
 mix ecto.create
+iex -S mix phx.server
 
 mix phx.gen.live Catalog Product products name:string sku:integer:unique
 mix ecto.migrate
