@@ -19,7 +19,7 @@ defmodule Oschild.MixProject do
   def application do
     [
       mod: {Oschild.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :observer, :runtime_tools, :wx]
     ]
   end
 

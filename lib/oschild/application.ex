@@ -17,7 +17,8 @@ defmodule Oschild.Application do
       # Start a worker by calling: Oschild.Worker.start_link(arg)
       # {Oschild.Worker, arg},
       # Start to serve requests, typically the last entry
-      OschildWeb.Endpoint
+      OschildWeb.Endpoint,
+      Oschild.Child.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
