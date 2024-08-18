@@ -26,5 +26,8 @@ mix ecto.create
 
 mix phx.gen.live Catalog Product products name:string sku:integer:unique
 mix ecto.migrate
+
+mix deps.get
+mix dialyzer
 ```
 
