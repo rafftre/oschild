@@ -16,6 +16,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+  * Dialyxir: https://github.com/jeremyjh/dialyxir/wiki/Phoenix-Dialyxir-Quickstart
 
 ## Project Initialization
 
@@ -29,6 +30,7 @@ mix phx.gen.live Catalog Product products name:string sku:integer:unique
 mix ecto.migrate
 
 mix deps.get
-mix dialyzer
+mix deps.compile
+mix dialyzer --plt
 ```
 
