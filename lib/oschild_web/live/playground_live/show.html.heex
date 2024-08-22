@@ -1,0 +1,26 @@
+<.header>Playground</.header>
+
+<h2>Children:</h2>
+<div :for={child <- @children}>
+  <%= child %>
+</div>
+
+<.link patch={~p"/playground/add"}>
+  <.button>Introduce a new child</.button>
+</.link>
+
+<.modal
+  :if={@live_action in [:add]}
+  id="add-child-modal"
+  show
+  on_cancel={JS.patch(~p"/playground")}
+>
+  <.live_component
+    module={OschildWeb.PlaygroundLive.AddChildForm}
+    id="add-child-component"
+    title={@page_title}
+    action={@live_action}
+    child={@child}
+    patch={~p"/playground"}
+  />
+</.modal>

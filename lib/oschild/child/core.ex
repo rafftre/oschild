@@ -3,6 +3,10 @@ defmodule Oschild.Child.Core do
   A 4-year-old child.
   """
 
+  import Ecto.Changeset
+
+  @dialyzer {:nowarn_function, changeset: 2}
+
   @typedoc """
   An activity of a child.
   """
@@ -20,19 +24,37 @@ defmodule Oschild.Child.Core do
   has a mood measured as an integer value (high means better).
   """
   @type t() :: %__MODULE__{
+          name: String.t(),
           activity: activity(),
           mood: non_neg_integer(),
           snacks: non_neg_integer()
         }
   defstruct(
+    name: nil,
     activity: :playing,
     mood: 0,
     snacks: 0
   )
 
+  @types %{
+    name: :string,
+    activity: [:playing, :eating, :hiding],
+    mood: :integer,
+    snacks: :integer
+  }
+
+  @doc false
+  @spec changeset(t(), map()) :: Ecto.Changeset.t()
+  def changeset(%__MODULE__{} = child, attrs) do
+    {child, @types}
+    |> cast(attrs, Map.keys(@types))
+    |> validate_required([:name])
+    |> validate_length(:name, min: 1)
+  end
+
   @doc "Wake up a new child ready to play."
-  @spec wake_up() :: t()
-  def wake_up, do: %__MODULE__{}
+  @spec wake_up(String.t()) :: t()
+  def wake_up(name), do: %__MODULE__{name: name}
 
   @doc """
   Give snacks to a child.

@@ -24,14 +24,14 @@ defmodule Oschild.Child do
   @typedoc """
   A child.
   """
-  @type t() :: %{
-          name: String.t(),
-          activity: activity(),
-          mood: non_neg_integer(),
-          snacks: non_neg_integer()
-        }
+  @type t() :: map()
 
   # Functions
+
+  @spec change_child(Core.t(), map()) :: Ecto.Changeset.t()
+  def change_child(child, attrs \\ %{}) do
+    Core.changeset(child, attrs)
+  end
 
   @spec all() :: list(pid())
   def all(), do: ChildSupervisor.find_all()
@@ -43,7 +43,7 @@ defmodule Oschild.Child do
   def get_state(server) do
     server
     |> ChildServer.current_state()
-    |> to_map()
+    |> Map.from_struct()
   end
 
   @spec give_snack(GenServer.server()) :: {:ok, non_neg_integer()} | {:error, non_neg_integer()}
@@ -57,15 +57,4 @@ defmodule Oschild.Child do
 
   @spec call_to_kindergarten(GenServer.server()) :: {:ok, activity()} | {:error, activity()}
   def call_to_kindergarten(server), do: ChildServer.call_to(server, :kindergarten)
-
-  # Private functions
-
-  defp to_map({name, child = %Core{}}) do
-    %{
-      name: name,
-      activity: child.activity,
-      mood: child.mood,
-      snacks: child.snacks
-    }
-  end
 end

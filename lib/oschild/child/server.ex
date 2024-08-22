@@ -46,18 +46,18 @@ defmodule Oschild.Child.Server do
   @impl true
   def init(name) do
     Logger.debug("Waking up #{name}")
-    {:ok, {name, Core.wake_up()}}
+    {:ok, Core.wake_up(name)}
   end
 
   @impl true
-  def handle_call({:current_state}, _from, {name, child}) do
-    Logger.debug("Retrieving current activity of #{name}")
-    {:reply, {name, child}, {name, child}}
+  def handle_call({:current_state}, _from, child) do
+    Logger.debug("Retrieving current activity of #{child.name}")
+    {:reply, child, child}
   end
 
   @impl true
-  def handle_call({:give_snacks, amount}, _from, {name, child}) do
-    Logger.debug("Giving #{amount} snack(s) to #{name}")
+  def handle_call({:give_snacks, amount}, _from, child) do
+    Logger.debug("Giving #{amount} snack(s) to #{child.name}")
 
     new_child = Core.give_snacks(child, amount)
 
@@ -67,16 +67,16 @@ defmodule Oschild.Child.Server do
         true -> {:ok, new_child.snacks}
       end
 
-    {:reply, result, {name, new_child}}
+    {:reply, result, new_child}
   end
 
   @impl true
-  def handle_call({:call_to, action}, _from, {name, child}) do
-    Logger.debug("Calling #{name} to #{action}")
+  def handle_call({:call_to, action}, _from, child) do
+    Logger.debug("Calling #{child.name} to #{action}")
 
     case Core.call_to(child, action) do
-      nil -> {:reply, {:error, child.activity}, {name, child}}
-      new_child -> {:reply, {:ok, new_child.activity}, {name, new_child}}
+      nil -> {:reply, {:error, child.activity}, child}
+      new_child -> {:reply, {:ok, new_child.activity}, new_child}
     end
   end
 

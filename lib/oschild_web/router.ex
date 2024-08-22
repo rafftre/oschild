@@ -19,7 +19,8 @@ defmodule OschildWeb.Router do
 
     get "/", PageController, :home
 
-    live "/playground", Playground
+    live "/playground", PlaygroundLive.Show, :show
+    live "/playground/add", PlaygroundLive.Show, :add
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
