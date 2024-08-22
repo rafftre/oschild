@@ -1,0 +1,19 @@
+<div>
+  <strong><%= @child.name %></strong>
+  [<%= @child.activity %>]
+  <p>
+    Mood is <%= @child.mood %>.
+
+    Has <%= @child.snacks %>
+    <%= if @child.snacks != 1 do %>
+      snacks.
+    <% else %>
+      snack.
+    <% end %>
+
+    <button phx-click="play" phx-target={@myself}>Call to play</button>
+    <button phx-click="eat" phx-target={@myself}>Call to eat</button>
+    <button phx-click="kindergarten" phx-target={@myself}>Call to kindergarten</button>
+    <button phx-click="snack" phx-target={@myself}>Give a snack</button>
+  </p>
+</div>

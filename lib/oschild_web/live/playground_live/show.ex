@@ -3,10 +3,11 @@ defmodule OschildWeb.PlaygroundLive.Show do
 
   alias Oschild.Child.Core, as: ChildCore
   alias OschildWeb.PlaygroundLive.AddChildForm
+  alias OschildWeb.PlaygroundLive.ShowChild
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign_children(socket)}
+    {:ok, assign_child_servers(socket)}
   end
 
   @impl true
@@ -16,7 +17,11 @@ defmodule OschildWeb.PlaygroundLive.Show do
 
   @impl true
   def handle_info({AddChildForm, {:child_added, _}}, socket) do
-    {:noreply, assign_children(socket)}
+    {:noreply, assign_child_servers(socket)}
+  end
+
+  def handle_info({ShowChild, {:call_failed, msg}}, socket) do
+    {:noreply, put_flash(socket, :error, msg)}
   end
 
   defp apply_action(socket, :add, _params) do
@@ -31,19 +36,19 @@ defmodule OschildWeb.PlaygroundLive.Show do
     |> assign(:child, nil)
   end
 
-  defp assign_children(socket) do
-    children =
+  defp assign_child_servers(socket) do
+    child_servers =
       Oschild.Child.all()
       |> Enum.filter(fn x -> is_pid(x) end)
-      |> Enum.map(fn x -> ptos(x) end)
+      |> Enum.map(fn x -> {x, to_s(x)} end)
 
-    assign(socket, :children, children)
+    assign(socket, :child_servers, child_servers)
   end
 
-  defp ptos(pid) when is_pid(pid) do
+  defp to_s(pid) when is_pid(pid) do
     list = :erlang.pid_to_list(pid)
     list |> List.delete_at(0) |> List.delete_at(-1) |> to_string()
   end
 
-  defp ptos(_pid), do: ""
+  defp to_s(_), do: ""
 end

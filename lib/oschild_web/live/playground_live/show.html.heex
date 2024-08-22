@@ -1,8 +1,12 @@
 <.header>Playground</.header>
-
-<h2>Children:</h2>
-<div :for={child <- @children}>
-  <%= child %>
+<!--<OschildWeb.PlaygroundLive.ChildList.show_all children={@children} />-->
+<h2>Children</h2>
+<div :for={{server, server_str} <- @child_servers}>
+  <.live_component
+    module={OschildWeb.PlaygroundLive.ShowChild}
+    id={server_str}
+    child_server={server}
+  />
 </div>
 
 <.link patch={~p"/playground/add"}>
