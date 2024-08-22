@@ -7,12 +7,6 @@ config :oschild, OschildWeb.Endpoint,
   secret_key_base: "GcJeDB9svGEjkgy/y2yTH+ShIIM+9KK7MYQckKUn6aGKdESgThSLHeBR3NT0HJ3X",
   server: false
 
-# In test we don't send emails
-config :oschild, Oschild.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 

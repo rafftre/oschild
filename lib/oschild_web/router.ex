@@ -35,7 +35,7 @@ defmodule OschildWeb.Router do
   #   pipe_through :api
   # end
 
-  # Enable LiveDashboard and Swoosh mailbox preview in development
+  # Enable LiveDashboard in development
   if Application.compile_env(:oschild, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
     # it behind authentication and allow only admins to access it.
@@ -48,7 +48,6 @@ defmodule OschildWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: OschildWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 end

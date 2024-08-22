@@ -11,8 +11,6 @@ defmodule Oschild.Application do
       OschildWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:oschild, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Oschild.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: Oschild.Finch},
       # Start a worker by calling: Oschild.Worker.start_link(arg)
       # {Oschild.Worker, arg},
       # Start to serve requests, typically the last entry
