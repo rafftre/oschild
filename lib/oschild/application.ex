@@ -9,7 +9,6 @@ defmodule Oschild.Application do
   def start(_type, _args) do
     children = [
       OschildWeb.Telemetry,
-      Oschild.Repo,
       {DNSCluster, query: Application.get_env(:oschild, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Oschild.PubSub},
       # Start the Finch HTTP client for sending emails

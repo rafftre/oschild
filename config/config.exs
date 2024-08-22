@@ -8,7 +8,6 @@
 import Config
 
 config :oschild,
-  ecto_repos: [Oschild.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
