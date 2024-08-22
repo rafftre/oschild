@@ -1,8 +1,8 @@
-defmodule OschildWeb.PlaygroundLive.Show do
+defmodule OschildWeb.PlaygroundLive.Index do
   use OschildWeb, :live_view
 
   alias Oschild.Child.Core, as: ChildCore
-  alias OschildWeb.PlaygroundLive.AddChildForm
+  alias OschildWeb.PlaygroundLive.AddChild
   alias OschildWeb.PlaygroundLive.ShowChild
 
   @impl true
@@ -16,7 +16,7 @@ defmodule OschildWeb.PlaygroundLive.Show do
   end
 
   @impl true
-  def handle_info({AddChildForm, {:child_added, _}}, socket) do
+  def handle_info({AddChild, {:child_added, _}}, socket) do
     {:noreply, assign_child_servers(socket)}
   end
 
@@ -45,10 +45,10 @@ defmodule OschildWeb.PlaygroundLive.Show do
     assign(socket, :child_servers, child_servers)
   end
 
-  defp to_s(pid) when is_pid(pid) do
-    list = :erlang.pid_to_list(pid)
+  def to_s(server) when is_pid(server) do
+    list = :erlang.pid_to_list(server)
     list |> List.delete_at(0) |> List.delete_at(-1) |> to_string()
   end
 
-  defp to_s(_), do: ""
+  def to_s(_), do: ""
 end

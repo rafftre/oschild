@@ -1,32 +1,7 @@
-defmodule OschildWeb.PlaygroundLive.AddChildForm do
+defmodule OschildWeb.PlaygroundLive.AddChild do
   use OschildWeb, :live_component
 
   alias Oschild.Child
-
-  @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.header>
-        <%= @title %>
-        <:subtitle>Introduce a new child to the playground.</:subtitle>
-      </.header>
-
-      <.simple_form
-        for={@form}
-        id="add-child-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <:actions>
-          <.button phx-disable-with="Introducing...">Introduce</.button>
-        </:actions>
-      </.simple_form>
-    </div>
-    """
-  end
 
   @impl true
   def update(%{child: child} = assigns, socket) do
