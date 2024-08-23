@@ -36,4 +36,5 @@ npm-debug.log
 /assets/node_modules/
 
 # rafftre
+*.dockerenv
 *.sublime-workspace

@@ -1,0 +1,12 @@
+services:
+  app:
+    image: oschild
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: app
+    restart: always
+    ports:
+      - 4000:4000
+    env_file:
+      - .dockerenv

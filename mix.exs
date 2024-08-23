@@ -19,9 +19,12 @@ defmodule Oschild.MixProject do
   def application do
     [
       mod: {Oschild.Application, []},
-      extra_applications: [:logger, :observer, :runtime_tools, :wx]
+      extra_applications: extra_applications(Mix.env()) ++ [:logger, :runtime_tools]
     ]
   end
+
+  defp extra_applications(:dev), do: [:observer, :wx]
+  defp extra_applications(_), do: []
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
@@ -69,10 +72,10 @@ defmodule Oschild.MixProject do
     [
       setup: ["deps.get", "assets.setup", "assets.build"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind noecto", "esbuild noecto"],
+      "assets.build": ["tailwind oschild", "esbuild oschild"],
       "assets.deploy": [
-        "tailwind noecto --minify",
-        "esbuild noecto --minify",
+        "tailwind oschild --minify",
+        "esbuild oschild --minify",
         "phx.digest"
       ]
     ]
