@@ -1,21 +1,36 @@
-# Child
+# Oschild
 
-**TODO: Add description**
+To start your Phoenix server:
 
-## Installation
+  * Run `mix setup` to install and setup dependencies
+  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `child` to your list of dependencies in `mix.exs`:
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-```elixir
-def deps do
-  [
-    {:child, "~> 0.1.0"}
-  ]
-end
+Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+
+## Learn more
+
+  * Official website: https://www.phoenixframework.org/
+  * Guides: https://hexdocs.pm/phoenix/overview.html
+  * Docs: https://hexdocs.pm/phoenix
+  * Forum: https://elixirforum.com/c/phoenix-forum
+  * Source: https://github.com/phoenixframework/phoenix
+  * Dialyxir: https://github.com/jeremyjh/dialyxir/wiki/Phoenix-Dialyxir-Quickstart
+
+## Project Initialization
+
+```sh
+mix phx.new oschild
+cd oschild
+mix ecto.create
+iex -S mix phx.server
+
+mix phx.gen.live Catalog Product products name:string sku:integer:unique
+mix ecto.migrate
+
+mix deps.get
+mix deps.compile
+mix dialyzer --plt
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/child>.
 
