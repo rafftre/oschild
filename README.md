@@ -18,19 +18,25 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Source: https://github.com/phoenixframework/phoenix
   * Dialyxir: https://github.com/jeremyjh/dialyxir/wiki/Phoenix-Dialyxir-Quickstart
 
-## Project Initialization
+## Command history
 
+Project Initialization:
 ```sh
 mix phx.new oschild
 cd oschild
 mix ecto.create
 iex -S mix phx.server
+```
 
+Code Generation:
+```sh
 mix phx.gen.live Catalog Product products name:string sku:integer:unique
 mix ecto.migrate
+```
 
+Dialyzer Setup:
+```sh
 mix deps.get
 mix deps.compile
 mix dialyzer --plt
 ```
-
