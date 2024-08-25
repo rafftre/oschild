@@ -1,19 +1,49 @@
-<div>
-  <strong><%= @child.name %></strong>
-  [<%= @child.activity %>]
-  <p>
-    Mood is <%= @child.mood %>.
+<div class="relative mt-6 flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+  <div class="p-6 pb-2">
+    <OschildWeb.ChildComponents.heading child={@child} />
+  </div>
 
-    Has <%= @child.snacks %>
-    <%= if @child.snacks != 1 do %>
-      snacks.
-    <% else %>
-      snack.
-    <% end %>
+  <div class="p-6 pt-0 flex items-center gap-8">
+    <OschildWeb.ChildComponents.mood value={@child.mood} />
 
-    <button phx-click="play" phx-target={@myself}>Call to play</button>
-    <button phx-click="eat" phx-target={@myself}>Call to eat</button>
-    <button phx-click="kindergarten" phx-target={@myself}>Call to kindergarten</button>
-    <button phx-click="snack" phx-target={@myself}>Give a snack</button>
-  </p>
+    <OschildWeb.ChildComponents.snacks amount={@child.snacks}>
+      <.link
+        phx-click="snack"
+        phx-target={@myself}
+        class="!font-bold !text-blue-gray-900 !transition-colors hover:!text-pink-500"
+      >
+        <.icon name="hero-plus-circle-mini" class="h-6 w-6 text-pink-400" />
+      </.link>
+    </OschildWeb.ChildComponents.snacks>
+  </div>
+
+  <div class="p-6 pt-0">
+    <div class="text-sm text-gray-600 py-1">Call to</div>
+
+    <div class="flex items-center gap-5">
+      <.link
+        phx-click="play"
+        phx-target={@myself}
+        class="!font-medium !text-blue-gray-900 !transition-colors hover:!text-pink-500"
+      >
+        <OschildWeb.ChildComponents.action>play</OschildWeb.ChildComponents.action>
+      </.link>
+
+      <.link
+        phx-click="eat"
+        phx-target={@myself}
+        class="!font-medium !text-blue-gray-900 !transition-colors hover:!text-pink-500"
+      >
+        <OschildWeb.ChildComponents.action>eat</OschildWeb.ChildComponents.action>
+      </.link>
+
+      <.link
+        phx-click="kindergarten"
+        phx-target={@myself}
+        class="!font-medium !text-blue-gray-900 !transition-colors hover:!text-pink-500"
+      >
+        <OschildWeb.ChildComponents.action>kindergarten</OschildWeb.ChildComponents.action>
+      </.link>
+    </div>
+  </div>
 </div>

@@ -1,17 +1,25 @@
-<.header>Playground</.header>
-<!--<OschildWeb.PlaygroundLive.ChildList.show_all children={@children} />-->
-<h2>Children</h2>
-<div :for={{server, server_str} <- @child_servers}>
-  <.live_component
-    module={OschildWeb.PlaygroundLive.ShowChild}
-    id={server_str}
-    child_server={server}
-  />
+<div class="w-full flex justify-between items-center p-3">
+  <h2 class="text-xl font-semibold">Children</h2>
+
+  <.button class="flex items-center bg-black border border-black text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" phx-click={JS.patch(~p"/playground/add")}>
+    <.icon name="hero-plus" class="w-4 h-4 mr-2 text-white" />
+    Introduce a new child
+  </.button>
 </div>
 
-<.link patch={~p"/playground/add"}>
-  <.button>Introduce a new child</.button>
-</.link>
+<div class="mb-2 flex flex-wrap items-center gap-6">
+  <%= if Enum.empty?(@child_servers) do %>
+    <p>Is empty here, bring a child to the playground.</p>
+  <% else %>
+    <div class="flex-auto" :for={{server, server_str} <- @child_servers}>
+      <.live_component
+        module={OschildWeb.PlaygroundLive.ShowChild}
+        id={server_str}
+        child_server={server}
+      />
+    </div>
+  <% end %>
+</div>
 
 <.modal
   :if={@live_action in [:add]}

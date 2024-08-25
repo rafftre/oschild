@@ -1,5 +1,7 @@
 # Oschild
 
+**Build and run: `docker compose up -d` or `podman-compose up -d`**
+
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
@@ -10,7 +12,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 
-## Command history
+## Commands history
 
 Project Initialization:
 ```sh

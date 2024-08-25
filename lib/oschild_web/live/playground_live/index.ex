@@ -32,7 +32,7 @@ defmodule OschildWeb.PlaygroundLive.Index do
 
   defp apply_action(socket, :show, _params) do
     socket
-    |> assign(:page_title, "Playground")
+    |> assign(:page_title, "Child Playground")
     |> assign(:child, nil)
   end
 
