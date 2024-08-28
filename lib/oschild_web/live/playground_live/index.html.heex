@@ -1,7 +1,9 @@
 <div class="w-full flex justify-between items-center p-3">
-  <h2 class="text-xl font-semibold">Children</h2>
+  <h2 class="text-brand text-2xl font-semibold leading-tight tracking-normal antialiased">
+    <%= @page_title %>
+  </h2>
 
-  <.button class="flex items-center bg-black border border-black text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" phx-click={JS.patch(~p"/playground/add")}>
+  <.button class="flex items-center bg-black border border-black text-white font-semibold py-2 px-4 rounded-md transition-colors duration-300" phx-click={JS.patch(~p"/add")}>
     <.icon name="hero-plus" class="w-4 h-4 mr-2 text-white" />
     Introduce a new child
   </.button>
@@ -25,7 +27,7 @@
   :if={@live_action in [:add]}
   id="add-child-modal"
   show
-  on_cancel={JS.patch(~p"/playground")}
+  on_cancel={JS.patch(~p"/")}
 >
   <.live_component
     module={OschildWeb.PlaygroundLive.AddChild}
@@ -33,6 +35,6 @@
     title={@page_title}
     action={@live_action}
     child={@child}
-    patch={~p"/playground"}
+    patch={~p"/"}
   />
 </.modal>

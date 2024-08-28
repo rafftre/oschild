@@ -17,10 +17,8 @@ defmodule OschildWeb.Router do
   scope "/", OschildWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-
-    live "/playground", PlaygroundLive.Index, :show
-    live "/playground/add", PlaygroundLive.Index, :add
+    live "/", PlaygroundLive.Index, :show
+    live "/add", PlaygroundLive.Index, :add
   end
 
   # Other scopes may use custom stacks.
