@@ -71,13 +71,13 @@ defmodule OschildWeb.ChildComponents do
     """
   end
 
-  defp class_for_activity(:playing), do: "bg-blue-500"
-  defp class_for_activity(:eating), do: "bg-fuchsia-500"
-  defp class_for_activity(_), do: "bg-stone-500"
+  def class_for_activity(:playing), do: "bg-blue-500"
+  def class_for_activity(:eating), do: "bg-fuchsia-500"
+  def class_for_activity(_), do: "bg-stone-500"
 
-  defp icon_for_mood(mood) when mood <= 0, do: "hero-face-frown"
-  defp icon_for_mood(_), do: "hero-face-smile"
+  def icon_for_mood(mood) when mood <= 0, do: "hero-face-frown"
+  def icon_for_mood(_), do: "hero-face-smile"
 
-  defp class_for_mood(mood) when mood <= 0, do: "text-yellow-500"
-  defp class_for_mood(_), do: "text-emerald-400"
+  def class_for_mood(mood) when mood <= 0, do: "text-yellow-500"
+  def class_for_mood(_), do: "text-emerald-400"
 end
