@@ -1,5 +1,7 @@
 # Oschild
 
+This repo is a solution for a [coding task](goal/README.md).
+
 **Build and run: `docker compose up -d` or `podman-compose up -d`**
 
 To start your Phoenix server:
